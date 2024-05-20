@@ -1,0 +1,78 @@
+describe('create an account', () => {
+    function randomEmail(){
+        const randomString = Math.random().toString(36).substring(2,10)
+        const email = randomString + "@gmail.com"
+        return email
+    }
+    let userEmail = randomEmail()
+
+    beforeEach(() => {
+        cy.visit('')
+    })
+        it('Succesfully create an account', () => {
+          cy.get('.panel > .header > :nth-child(3) > a').click()
+          cy.get('#firstname').type('Team')
+          cy.get('#lastname').type("Eight")
+          cy.get('#email_address').type(userEmail)
+          cy.get('#password').type("KelompokQuiz-8")
+          cy.get('#password-confirmation').type("KelompokQuiz-8")
+          cy.get('#form-validate > .actions-toolbar > div.primary > .action').click()
+          cy.get('.message-success').should('contain.text','Thank you for registering')
+        })
+        it('Failed - Confirm password not matched', () => {
+          cy.get('.panel > .header > :nth-child(3) > a').click()
+          cy.get('#firstname').type('Team')
+          cy.get('#lastname').type("Eight")
+          cy.get('#email_address').type(userEmail)
+          cy.get('#password').type("KelompokQuiz-8")
+          cy.get('#password-confirmation').type("Kelompok-0")
+          cy.get('#form-validate > .actions-toolbar > div.primary > .action').click()
+          cy.get('#password-confirmation-error').should('contain.text','same value')
+        })
+        it('Failed - Blank first name', () => {
+          cy.get('.panel > .header > :nth-child(3) > a').click()
+          cy.get('#lastname').type("Eight")
+          cy.get('#email_address').type(userEmail)
+          cy.get('#password').type("KelompokQuiz-8")
+          cy.get('#password-confirmation').type("KelompokQuiz-8")
+          cy.get('#form-validate > .actions-toolbar > div.primary > .action').click()
+          cy.get('#firstname-error').should('contain.text','required field.')
+        })
+        it('Failed - Blank last name', () => {
+          cy.get('.panel > .header > :nth-child(3) > a').click()
+          cy.get('#firstname').type("Team")
+          cy.get('#email_address').type(userEmail)
+          cy.get('#password').type("KelompokQuiz-8")
+          cy.get('#password-confirmation').type("KelompokQuiz-8")
+          cy.get('#form-validate > .actions-toolbar > div.primary > .action').click()
+          cy.get('#lastname-error').should('contain.text','required field.')
+        })
+        it.only('Failed - Blank password', () => {
+            cy.get('.panel > .header > :nth-child(3) > a').click()
+            cy.get('#firstname').type("Team")
+            cy.get('#lastname').type("Eight")
+            cy.get('#email_address').type(userEmail)
+            cy.get('#form-validate > .actions-toolbar > div.primary > .action').click()
+            cy.get('#password-confirmation-error').should('contain.text','required field.')
+          })
+        it('Failed - Wrong Email', () => {
+          cy.get('.panel > .header > :nth-child(3) > a').click()
+          cy.get('#firstname').type("Team")
+          cy.get('#lastname').type("Eight")
+          cy.get('#email_address').type("team-eight")
+          cy.get('#password').type("KelompokQuiz-8")
+          cy.get('#password-confirmation').type("KelompokQuiz-8")
+          cy.get('#form-validate > .actions-toolbar > div.primary > .action').click()
+          cy.get('#email_address-error').should('contain.text','valid email')
+        })
+        it('Failed - Weak Password', () => {
+          cy.get('.panel > .header > :nth-child(3) > a').click()
+          cy.get('#firstname').type("Team")
+          cy.get('#lastname').type("Eight")
+          cy.get('#email_address').type(userEmail)
+          cy.get('#password').type("kelompok")
+          cy.get('#password-confirmation').type("kelompok")
+          cy.get('#form-validate > .actions-toolbar > div.primary > .action').click()
+          cy.get('#password-error').should('contain.text','Minimum of')
+        })
+        })
