@@ -1,7 +1,7 @@
 # sanber56-Cypress-kelompok-8-
 Kelompok 8:
-Novia Roro Dorojatun
-Gugun
+1. Novia Roro Dorojatun
+2. Gugun
 
 Minimum Feature Test 
 1. Create an Account - Novia Roro D
