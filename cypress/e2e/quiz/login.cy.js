@@ -6,11 +6,9 @@ describe('Login', () => {
         const email = randomString + "@gmail.com"
         return email
     }
-    beforeEach(() => {
-        cy.visit('')
-      })
 
     let userEmail = randomEmail()
+
         it('Succesfully login', () => {
           cy.visit('https://magento.softwaretestingboard.com/')
           cy.get('.panel > .header > .authorization-link').click()
@@ -19,7 +17,7 @@ describe('Login', () => {
           cy.get('.login-container > .block-customer-login > .block-content > #login-form > .fieldset > .actions-toolbar > div.primary > #send2').click()
           cy.url().should('include','magento')
         })
-        it('Failed login - Blank email', () => {
+        it.only('Failed login - Blank email', () => {
             cy.visit('https://magento.softwaretestingboard.com/')
             cy.get('.panel > .header > .authorization-link').click()
             cy.get('#email').type(" ")
