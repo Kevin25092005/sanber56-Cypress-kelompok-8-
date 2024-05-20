@@ -25,6 +25,7 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 Cypress.Commands.add('userlogin', (useremail,userpassw) => {
+    cy.get('.panel > .header > .authorization-link').click()
     cy.get('#email').clear().type(useremail)
     cy.get('#pass').clear().type(userpassw)
     cy.get('#send2').click()
