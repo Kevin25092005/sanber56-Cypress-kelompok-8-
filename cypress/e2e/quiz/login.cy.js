@@ -1,4 +1,4 @@
-import loginPage from '../../support/PageObject/Login'
+import loginPage from '../../support/PageObject/Login.cy'
 
 describe('Login', () => {
     function randomEmail(){
@@ -17,7 +17,7 @@ describe('Login', () => {
         })
           it('Failed login - Password incorrect', () => {
            cy.userlogin(userEmail,'Kelompok-8')
-           cy.get('.message-error').should('contain.text','incorrect')
+            cy.get('.message-error').should('contain.text','incorrect')
           })
           it('Failed login - Email invalid', () => {
             cy.userlogin('salah','Kelompok-8')
